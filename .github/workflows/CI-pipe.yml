@@ -17,8 +17,8 @@ jobs:
       - name: 3. install npm
         run: npm install
 
-      - name: 4. run app
-        run: npm start
+      # - name: 4. run app
+      #   run: npm start
 
         
 
