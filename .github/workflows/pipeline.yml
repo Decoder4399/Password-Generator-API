@@ -1,0 +1,50 @@
+name: pipeline
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - name: 1. code checkout
+          uses: actions/checkout@v4
+
+        - name: 2. setup node
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18'
+
+        - name: 3. install npm
+          run: npm install
+
+        - name: 4. build app
+          run: echo "build done"
+
+    security:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 1. code checkout
+              uses: actions/checkout@v4
+
+            - name: 2. audit check
+              run: npm audit --audit-level=high
+
+
+    docker:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 1. code checkout
+              uses: actions/checkout@v4
+
+            - name: 2. docker image build
+              run: docker build -t pass-gen-app .
+
+            - name: 3. trivy scan
+              uses: aquasecurity/trivy-action@master
+              with: 
+                image-ref: pass-gen-app
+                severity: CRITICAL
+                exit-code: 1
+

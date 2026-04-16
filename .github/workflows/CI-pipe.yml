@@ -1,8 +1,7 @@
 name: CI-pipe
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   ci:
