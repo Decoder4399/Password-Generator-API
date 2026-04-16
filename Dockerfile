@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN apk update && apk upgrade
+
 COPY . .
 
 EXPOSE 5000
