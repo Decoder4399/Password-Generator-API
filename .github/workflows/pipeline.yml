@@ -29,7 +29,10 @@ jobs:
             - name: 1. code checkout
               uses: actions/checkout@v4
 
-            - name: 2. audit check
+            - name: 2. install npm
+              run: npm install
+
+            - name: 3. audit check
               run: npm audit --audit-level=high
 
 
