@@ -19,8 +19,25 @@ jobs:
       - name: 3. install npm
         run: npm install
 
-      - name: 4. run app
-        run: echo "App build successful"
+      - name: 4. audit check
+        run: npm audit --audit-level=high
+
+
+      - name: 5. docker image build
+        run: docker build -t pass-gen-app .
+
+      - name: 6. trivy scan
+        uses: aquasecurity/trivy-action@master
+        with: 
+          image-ref: pass-gen-app
+          severity: CRITICAL
+          exit-code: 1
+
+
+
+
+
+
 
         
 
